@@ -10,15 +10,20 @@
 
 
 #@dev ERC20/223 Features referenced by this contract
-contract TokenContract:
-    def transfer(_to: address, _value: uint256) -> bool: modifying
+interface TokenContract:
+    def transfer(_to: address, _value: uint256) -> bool: payable
 
 # Event for token purchase logging
 # @param _purchaser who paid for the tokens
 # @param _beneficiary who got the tokens
 # @param _value weis paid for purchase
 # @param _amount amount of tokens purchased
-TokenPurchase: event({_purchaser: indexed(address), _beneficiary: indexed(address), _value: uint256(wei), _amount: uint256})
+
+event TokenPurchase: 
+    _purchaser: address
+    _beneficiary: address
+    _value: uint256
+    _amount: uint256
 
 # The token being sold
 token: public(address)
@@ -33,9 +38,9 @@ wallet: public(address)
 rate: public(uint256)
 
 #Amount of wei raised
-weiRaised: public(uint256(wei))
+weiRaised: public(uint256)
 
-@public
+@external
 def __init__(_rate: uint256, _wallet: address, _token: address):
     """
     @dev Initializes this contract
@@ -52,38 +57,37 @@ def __init__(_rate: uint256, _wallet: address, _token: address):
     self.wallet = _wallet
     self.token = _token
 
-@private
-@constant
+@internal
 def getTokenAmount(_weiAmount: uint256) -> uint256:
     return _weiAmount * self.rate
 
 
-@private
-def processTransaction(_sender: address, _beneficiary: address, _weiAmount: uint256(wei)):
+@internal
+def processTransaction(_sender: address, _beneficiary: address, _weiAmount: uint256):
     #pre validate
     assert _beneficiary != ZERO_ADDRESS, "Invalid address."
     assert _weiAmount != 0, "Invalid amount received."
 
     #calculate the number of tokens for the Ether contribution.
-    tokens: uint256 = self.getTokenAmount(as_unitless_number(_weiAmount))
+    tokens: uint256 = self.getTokenAmount(_weiAmount)
     
     self.weiRaised += _weiAmount
 
     #process purchase
     assert TokenContract(self.token).transfer(_beneficiary, tokens), "Could not forward funds due to an unknown error."
-    log.TokenPurchase(_sender, _beneficiary, _weiAmount, tokens)
+    log TokenPurchase(_sender, _beneficiary, _weiAmount, tokens)
 
     #forward funds to the receiving wallet address.
     send(self.wallet, _weiAmount)
 
     #post validate
 
-@public
+@external
 @payable
 def buyTokens(_beneficiary: address):
     self.processTransaction(msg.sender, _beneficiary, msg.value)
 
-@public
+@external
 @payable
 def __default__():
     self.processTransaction(msg.sender, msg.sender, msg.value)
