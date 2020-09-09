@@ -49,7 +49,7 @@ def hasClosed() -> bool:
     return block.timestamp > self.closingTime
 
 @external
-def __init__(_openingTime: uint256, _closingTime: uint256, _rate: uint256, _wallet: address, _token: address, _cap: uint256):
+def __init__(_openingTime: uint256, _closingTime: uint256, _rate: uint256, _wallet: address, _token: address):
     """
     @dev Initializes this contract
     @param _rate Number of token units a buyer gets per wei
