@@ -21,13 +21,11 @@ allowed: HashMap[address, HashMap[address, uint256]]
 frozenBalances: public(HashMap[address, bool])
 owner: public(address)
 
-interface EcoMgr:
-    def fulfill(_purchaser: address, _amount: uint256) -> uint256: payable
 
 @external
 def __init__():
-    _initialSupply: uint256 = 6000000000
-    _decimals: uint256 = 2
+    _initialSupply: uint256 = 6000
+    _decimals: uint256 = 6
     self.totalSupply = _initialSupply * 10 ** _decimals
     self.balances[msg.sender] = self.totalSupply
     self.name = 'Honos Coin'
@@ -100,3 +98,7 @@ def approve(_spender: address, _amount: uint256) -> bool:
 @external
 def allowance(_owner: address, _spender: address) -> uint256:
     return self.allowed[_owner][_spender]
+
+@external
+def getTotalSupply() -> uint256:
+    return self.totalSupply
