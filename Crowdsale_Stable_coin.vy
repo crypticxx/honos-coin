@@ -49,11 +49,11 @@ def __init__():
     self.balances[msg.sender] = self.totalSupply
     self.cap = 100000000
     self.maxSupply = 20000000000
-    self.minFundingGoal = as_wei_value(2000, "ether")
-    self.maxFundingGoal = as_wei_value(2500, "ether")
+    self.minFundingGoal = as_wei_value(1, "ether")
+    self.maxFundingGoal = as_wei_value(20, "ether")
     self.amountRaised = 0
     self.deadline = block.timestamp + 3600 * 24  # 1 day (24 hours)
-    self.price = as_wei_value(1, "ether") / 100
+    self.price = as_wei_value(1, "ether") / 200000
     self.fundingGoalReached = False
     self.crowdsaleClosed = False
 
