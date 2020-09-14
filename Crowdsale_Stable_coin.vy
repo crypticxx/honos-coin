@@ -39,8 +39,8 @@ crowdsaleClosed: public(bool)
 
 @external
 def __init__():
-    _initialSupply: uint256 = 6000
-    _decimals: uint256 = 6
+    _initialSupply: uint256 = 800000000
+    _decimals: uint256 = 0
     self.totalSupply = _initialSupply * 10 ** _decimals
     self.name = 'Honos Coin'
     self.symbol = 'HON'
@@ -53,7 +53,7 @@ def __init__():
     self.maxFundingGoal = as_wei_value(20, "ether")
     self.amountRaised = 0
     self.deadline = block.timestamp + 3600 * 24  # 1 day (24 hours)
-    self.price = as_wei_value(1, "ether") / 200000
+    self.price = as_wei_value(1, "ether") / 240000
     self.fundingGoalReached = False
     self.crowdsaleClosed = False
 
@@ -65,8 +65,8 @@ def __default__():
     assert msg.sender != self.owner
     assert self.crowdsaleClosed == False, "Sorry, the ICO for Honos Oficium has closed!"
     assert self.amountRaised + msg.value < self.maxFundingGoal, "Sorry, max goal for ICO reached!"
-    assert msg.value >= as_wei_value(0.2, "ether")
-    tokenAmount: uint256 = msg.value / self.price
+    assert msg.value >= as_wei_value(0.3, "ether")
+    tokenAmount: uint256 = as_wei_value(msg.value, "ether") / self.price
     assert self.balances[msg.sender] + tokenAmount <= self.cap, "Sorry, you've reached the Honos buyer's cap!"
     self.ethBalances[msg.sender] += msg.value
     self.amountRaised += msg.value
