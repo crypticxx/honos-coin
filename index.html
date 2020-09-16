@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <script>
+        window.onload = function () {
+            if(typeof web3 == 'undefined')
+            {
+                document.getElementById("metamask").innerHTML = "Install Metamask to buy Honos Coin";
+            }
+            getvalues();
+        }
+
+        function getvalues() {
+            try{
+
+
+                var abi = [{ "name": "Transfer", "inputs": [{ "type": "address", "name": "_from", "indexed": true }, { "type": "address", "name": "_to", "indexed": true }, { "type": "uint256", "name": "_value", "indexed": false }], "anonymous": false, "type": "event" }, { "name": "Approval", "inputs": [{ "type": "address", "name": "_owner", "indexed": true }, { "type": "address", "name": "_spender", "indexed": true }, { "type": "uint256", "name": "_value", "indexed": false }], "anonymous": false, "type": "event" }, { "name": "Payment", "inputs": [{ "type": "address", "name": "_buyer", "indexed": true }, { "type": "uint256", "name": "_value", "indexed": false }], "anonymous": false, "type": "event" }, { "name": "Freeze", "inputs": [{ "type": "address", "name": "_account", "indexed": true }, { "type": "bool", "name": "_freeze", "indexed": false }], "anonymous": false, "type": "event" }, { "outputs": [], "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "stateMutability": "payable", "type": "fallback" }, { "name": "checkGoalReached", "outputs": [], "inputs": [], "stateMutability": "nonpayable", "type": "function", "gas": 72876 }, { "name": "safeWithdrawal", "outputs": [], "inputs": [], "stateMutability": "nonpayable", "type": "function", "gas": 154260 }, { "name": "freezeBalance", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "address", "name": "_target" }, { "type": "bool", "name": "_freeze" }], "stateMutability": "nonpayable", "type": "function", "gas": 38234 }, { "name": "mintToken", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "uint256", "name": "_mintedAmount" }], "stateMutability": "nonpayable", "type": "function", "gas": 77421 }, { "name": "burn", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "uint256", "name": "_burntAmount" }], "stateMutability": "nonpayable", "type": "function", "gas": 76577 }, { "name": "balanceOf", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [{ "type": "address", "name": "_owner" }], "stateMutability": "nonpayable", "type": "function", "gas": 1455 }, { "name": "transfer", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "address", "name": "_to" }, { "type": "uint256", "name": "_amount" }], "stateMutability": "nonpayable", "type": "function", "gas": 76909 }, { "name": "transferFrom", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "address", "name": "_from" }, { "type": "address", "name": "_to" }, { "type": "uint256", "name": "_value" }], "stateMutability": "nonpayable", "type": "function", "gas": 114337 }, { "name": "approve", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "address", "name": "_spender" }, { "type": "uint256", "name": "_amount" }], "stateMutability": "nonpayable", "type": "function", "gas": 37973 }, { "name": "allowance", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [{ "type": "address", "name": "_owner" }, { "type": "address", "name": "_spender" }], "stateMutability": "nonpayable", "type": "function", "gas": 1729 }, { "name": "getTotalSupply", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "nonpayable", "type": "function", "gas": 1451 }, { "name": "name", "outputs": [{ "type": "string", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 6906 }, { "name": "symbol", "outputs": [{ "type": "string", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 6936 }, { "name": "totalSupply", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1541 }, { "name": "maxSupply", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1571 }, { "name": "decimals", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1601 }, { "name": "ethBalances", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [{ "type": "address", "name": "arg0" }], "stateMutability": "view", "type": "function", "gas": 1785 }, { "name": "frozenBalances", "outputs": [{ "type": "bool", "name": "" }], "inputs": [{ "type": "address", "name": "arg0" }], "stateMutability": "view", "type": "function", "gas": 1815 }, { "name": "owner", "outputs": [{ "type": "address", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1691 }, { "name": "cap", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1721 }, { "name": "minFundingGoal", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1751 }, { "name": "maxFundingGoal", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1781 }, { "name": "amountRaised", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1811 }, { "name": "deadline", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1841 }, { "name": "price", "outputs": [{ "type": "uint256", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1871 }, { "name": "fundingGoalReached", "outputs": [{ "type": "bool", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1901 }, { "name": "crowdsaleClosed", "outputs": [{ "type": "bool", "name": "" }], "inputs": [], "stateMutability": "view", "type": "function", "gas": 1931 }]
+
+
+                var contractAddress = "0x861BB98F735F9Ba6b528251e438973f0b9AD2100";
+                myAbi = web3.eth.contract(abi);
+                var myfunction = myAbi.at(contractAddress);
+
+                myfunction.beneficiary.call(function (error, result) {
+                    if (error) { document.getElementById("metamask").innerHTML = error }
+                    if (result) {
+                        document.getElementById("beneficiary").innerHTML = result;
+                    }
+                });
+
+            }
+            catch(err) {
+                document.getElementById("metamask").innerHTML=err;
+            }
+        }
+
+        function makePayment() {
+            var amount = 
+            web3.eth.getAccounts(function (error, result) {
+                web3.eth.sendTransaction(
+                    {
+                        from: result[0],
+                        to: "0x861BB98F735F9Ba6b528251e438973f0b9AD2100",
+                        value: amount, 
+                        data: "0x06cb4bcd"
+                    }, function (err, transactionHash) {
+                        if (!err)
+                            console.log(transactionHash);
+                    });
+            });
+
+        }
+
+    </script>
+
+    <div id="metamask"></div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="p-4">Honos Coin ICO</h1>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <h5 class="p-1">Buy Tokens</h5>
+        </div>
+    </div>
+
+   <div class="col-md-12 text-center p-4">
+       <form name="pay" onsubmit="makePayment()" method="post">
+           <label for="amount"> Amount: </label>
+           <input type="number" name="amount"/>
+           <input type="submit"/>
+           </form>
+   </div> 
+
+</body>
+</html>
